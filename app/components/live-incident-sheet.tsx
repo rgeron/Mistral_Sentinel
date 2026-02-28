@@ -88,11 +88,11 @@ export function LiveIncidentSheet() {
   }, []);
 
   return (
-    <div className="flex flex-col w-full max-w-2xl bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 shadow-xl overflow-hidden relative">
+    <div className="flex flex-col w-full max-w-2xl bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden relative">
       {/* HUMAN TRANSFER OVERLAY */}
       {humanTransferActive && (
-        <div className="absolute inset-0 z-50 bg-red-900/90 backdrop-blur-md flex flex-col items-center justify-center animate-in fade-in duration-500">
-          <div className="p-4 bg-red-500 rounded-full animate-pulse mb-6 shadow-[0_0_50px_rgba(239,68,68,0.6)]">
+        <div className="absolute inset-0 z-50 bg-white/95 backdrop-blur-md flex flex-col items-center justify-center animate-in fade-in duration-500">
+          <div className="p-4 bg-black rounded-lg animate-pulse mb-6 shadow-md border border-gray-800">
             <svg
               className="w-12 h-12 text-white"
               fill="none"
@@ -107,26 +107,26 @@ export function LiveIncidentSheet() {
               />
             </svg>
           </div>
-          <h2 className="text-3xl font-black tracking-widest text-white mb-2">
+          <h2 className="text-3xl font-black tracking-tight text-black mb-2">
             TRANSFER INITIATED
           </h2>
-          <p className="text-red-200 font-mono text-lg mb-8">
-            CONNECTING TO HUMAN DISPATCHER
+          <p className="text-gray-600 font-mono text-lg mb-8 uppercase">
+            Connecting to human dispatcher
           </p>
           <button
             onClick={() => setHumanTransferActive(false)}
-            className="px-6 py-2 bg-white/10 hover:bg-white/20 text-white rounded-full text-sm font-medium transition-colors border border-white/20"
+            className="px-6 py-2.5 bg-black hover:bg-gray-900 border border-gray-800 text-white rounded-lg text-sm font-medium transition-colors shadow-sm"
           >
             Dismiss Alert
           </button>
         </div>
       )}
 
-      <div className="flex items-center justify-between p-4 border-b border-white/10 bg-black/20">
+      <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-gray-50">
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-rose-500/20 rounded-lg">
+          <div className="p-2 bg-white border border-gray-200 rounded-lg shadow-sm">
             <svg
-              className="w-5 h-5 text-rose-400"
+              className="w-5 h-5 text-black"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -139,16 +139,16 @@ export function LiveIncidentSheet() {
               />
             </svg>
           </div>
-          <h2 className="text-xl font-semibold text-white">
+          <h2 className="text-lg font-bold text-black tracking-tight">
             Live Incident Sheet
           </h2>
         </div>
-        <div className="flex items-center gap-2 text-sm text-gray-400 font-mono">
+        <div className="flex items-center gap-2 text-sm text-gray-500 font-mono font-medium">
           <span className="relative flex h-2 w-2">
             {isConnected ? (
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-black"></span>
             ) : (
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-gray-500"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-gray-300"></span>
             )}
           </span>
           {isConnected ? "Live" : "Waiting..."}
@@ -158,9 +158,9 @@ export function LiveIncidentSheet() {
       <div className="p-4 flex flex-col gap-4 max-h-125 overflow-y-auto custom-scrollbar">
         {incidents.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-12 text-center">
-            <div className="w-16 h-16 mb-4 rounded-full bg-white/5 flex items-center justify-center">
+            <div className="w-16 h-16 mb-4 rounded-full bg-gray-50 border border-gray-200 flex items-center justify-center">
               <svg
-                className="w-8 h-8 text-gray-500"
+                className="w-8 h-8 text-gray-400"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -173,8 +173,8 @@ export function LiveIncidentSheet() {
                 />
               </svg>
             </div>
-            <p className="text-gray-400 font-medium">No incident data yet</p>
-            <p className="text-gray-500 text-sm mt-1">
+            <p className="text-black font-semibold">No incident data yet</p>
+            <p className="text-gray-500 text-sm mt-1 font-medium">
               Start a call and the agent will extract facts automatically
             </p>
           </div>
@@ -189,10 +189,10 @@ export function LiveIncidentSheet() {
               return (
                 <div
                   key={`${incident.data.timestamp}-${idx}`}
-                  className="group flex flex-col p-4 rounded-xl bg-red-900/40 border border-red-500/30 animate-in fade-in slide-in-from-bottom-4"
+                  className="group flex flex-col p-4 rounded-lg bg-gray-50 border-2 border-dashed border-gray-300 animate-in fade-in slide-in-from-bottom-4"
                 >
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 text-red-400 font-bold uppercase tracking-wider text-sm">
+                    <div className="flex items-center gap-2 text-black font-bold uppercase tracking-wider text-sm">
                       <svg
                         className="w-4 h-4"
                         fill="none"
@@ -208,7 +208,7 @@ export function LiveIncidentSheet() {
                       </svg>
                       Human Transfer Requested
                     </div>
-                    <span className="text-xs text-red-500 font-mono">
+                    <span className="text-xs text-gray-500 font-mono font-medium">
                       {time}
                     </span>
                   </div>
@@ -221,22 +221,22 @@ export function LiveIncidentSheet() {
               return (
                 <div
                   key={`${incident.data.timestamp}-${idx}`}
-                  className="group flex flex-col p-4 rounded-xl bg-orange-900/30 border border-orange-500/30 animate-in fade-in slide-in-from-bottom-4"
+                  className="group flex flex-col p-4 rounded-lg bg-black text-white border border-gray-800 shadow-sm animate-in fade-in slide-in-from-bottom-4"
                 >
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="px-2.5 py-1 text-xs font-bold bg-orange-500/20 text-orange-400 rounded-md uppercase tracking-wider">
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="px-2.5 py-1 text-xs font-bold bg-white text-black rounded-md uppercase tracking-wider">
                       Service Dispatched
                     </span>
-                    <span className="text-xs text-orange-500 font-mono">
+                    <span className="text-xs text-gray-400 font-mono font-medium">
                       {time}
                     </span>
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="flex flex-col gap-1">
-                      <span className="text-xs text-gray-400 uppercase tracking-wider font-semibold">
+                      <span className="text-[10px] text-gray-400 uppercase tracking-widest font-bold">
                         Service Type
                       </span>
-                      <span className="text-white font-medium capitalize flex items-center gap-2">
+                      <span className="text-white font-semibold capitalize flex items-center gap-2">
                         {incident.data.service_type === "police" && "🚓"}
                         {incident.data.service_type === "firefighter" && "🚒"}
                         {incident.data.service_type === "ambulance" && "🚑"}
@@ -244,12 +244,10 @@ export function LiveIncidentSheet() {
                       </span>
                     </div>
                     <div className="flex flex-col gap-1">
-                      <span className="text-xs text-gray-400 uppercase tracking-wider font-semibold">
+                      <span className="text-[10px] text-gray-400 uppercase tracking-widest font-bold">
                         Priority
                       </span>
-                      <span
-                        className={`font-medium capitalize ${incident.data.priority === "high" ? "text-red-400" : "text-yellow-400"}`}
-                      >
+                      <span className="text-white font-semibold capitalize">
                         {incident.data.priority || "Normal"}
                       </span>
                     </div>
@@ -262,28 +260,22 @@ export function LiveIncidentSheet() {
             return (
               <div
                 key={`${incident.data.timestamp}-${idx}`}
-                className="group flex flex-col p-4 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-white/20 transition-all duration-300 animate-in fade-in slide-in-from-bottom-4"
+                className="group flex flex-col p-4 rounded-lg bg-white border border-gray-200 shadow-sm hover:border-gray-300 transition-all duration-300 animate-in fade-in slide-in-from-bottom-4"
               >
-                <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2">
-                    <span className="px-2.5 py-1 text-xs font-semibold bg-blue-500/20 text-blue-300 rounded-md">
+                    <span className="px-2.5 py-1 text-xs font-bold bg-gray-100 border border-gray-200 text-black rounded-md uppercase tracking-widest">
                       Info Update
                     </span>
                     {incident.data.gravity_score && (
                       <span
-                        className={`px-2 py-0.5 text-[10px] font-bold rounded-full ${
-                          incident.data.gravity_score >= 4
-                            ? "bg-red-500/30 text-red-300"
-                            : incident.data.gravity_score >= 3
-                              ? "bg-orange-500/30 text-orange-300"
-                              : "bg-green-500/30 text-green-300"
-                        }`}
+                        className={`px-2 py-0.5 text-[10px] font-bold rounded bg-gray-100 border border-gray-200 text-black uppercase tracking-widest`}
                       >
                         Gravity: {incident.data.gravity_score}/5
                       </span>
                     )}
                   </div>
-                  <span className="text-xs text-gray-500 font-mono">
+                  <span className="text-xs text-gray-400 font-mono font-medium">
                     {time}
                   </span>
                 </div>
@@ -291,10 +283,10 @@ export function LiveIncidentSheet() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {incident.data.location && (
                     <div className="flex flex-col gap-1">
-                      <span className="text-xs text-gray-400 uppercase tracking-wider font-semibold">
+                      <span className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">
                         Location
                       </span>
-                      <span className="text-white font-medium">
+                      <span className="text-black font-semibold">
                         {incident.data.location}
                       </span>
                     </div>
@@ -302,21 +294,21 @@ export function LiveIncidentSheet() {
 
                   {incident.data.caller_type && (
                     <div className="flex flex-col gap-1">
-                      <span className="text-xs text-gray-400 uppercase tracking-wider font-semibold">
+                      <span className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">
                         Caller
                       </span>
-                      <span className="text-white font-medium capitalize">
+                      <span className="text-black font-semibold capitalize">
                         {incident.data.caller_type}
                       </span>
                     </div>
                   )}
 
                   {incident.data.situation && (
-                    <div className="flex flex-col gap-1 sm:col-span-2 mt-2 pt-3 border-t border-white/10">
-                      <span className="text-xs text-gray-400 uppercase tracking-wider font-semibold">
+                    <div className="flex flex-col gap-1 sm:col-span-2 mt-2 pt-3 border-t border-gray-100">
+                      <span className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">
                         Situation Summary
                       </span>
-                      <p className="text-gray-300 leading-relaxed text-sm mt-1">
+                      <p className="text-gray-800 leading-relaxed text-sm mt-1 font-medium">
                         {incident.data.situation}
                       </p>
                     </div>

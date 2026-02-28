@@ -31,8 +31,8 @@ export function Conversation() {
   }, [conversation]);
 
   return (
-    <div className="flex flex-col items-center gap-4 p-6 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 shadow-xl transition-all hover:shadow-2xl">
-      <h2 className="text-2xl font-semibold bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent mb-2">
+    <div className="flex flex-col items-center gap-4 p-6 bg-white rounded-xl border border-gray-200 shadow-sm transition-all hover:shadow-md">
+      <h2 className="text-xl font-bold text-black mb-2 tracking-tight">
         Emergency Voice Agent
       </h2>
 
@@ -40,17 +40,17 @@ export function Conversation() {
         <button
           onClick={startConversation}
           disabled={conversation.status === "connected"}
-          className="px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-medium rounded-full shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 transform hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+          className="px-6 py-2.5 bg-black text-white font-medium rounded-lg shadow-sm border border-transparent hover:bg-gray-900 transition-all disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 flex items-center justify-center min-w-35"
         >
           <div className="flex items-center gap-2">
-            <span className="relative flex h-3 w-3">
+            <span className="relative flex h-2 w-2">
               {conversation.status === "connected" ? (
                 <>
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
                 </>
               ) : (
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-300"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-gray-400"></span>
               )}
             </span>
             {conversation.status === "connected" ? "Connected" : "Start Call"}
@@ -60,7 +60,7 @@ export function Conversation() {
         <button
           onClick={stopConversation}
           disabled={conversation.status !== "connected"}
-          className="px-6 py-3 bg-gradient-to-r from-red-500 to-rose-600 text-white font-medium rounded-full shadow-lg shadow-red-500/30 hover:shadow-red-500/50 transform hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+          className="px-6 py-2.5 bg-white text-black font-medium border border-gray-300 rounded-lg shadow-sm hover:bg-gray-50 transition-all disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-gray-200 focus:ring-offset-2 flex items-center justify-center min-w-35"
         >
           <div className="flex items-center gap-2">
             <svg
@@ -82,19 +82,19 @@ export function Conversation() {
         </button>
       </div>
 
-      <div className="flex flex-col items-center mt-6 w-full p-4 bg-black/20 rounded-xl">
-        <div className="flex justify-between w-full text-sm text-gray-400 mb-2 font-mono">
+      <div className="flex flex-col items-center mt-6 w-full p-4 bg-gray-50 border border-gray-100 rounded-lg">
+        <div className="flex justify-between w-full text-sm text-gray-500 mb-2 font-mono">
           <span>Status:</span>
           <span
-            className={`font-semibold ${conversation.status === "connected" ? "text-green-400" : "text-gray-400"}`}
+            className={`font-semibold ${conversation.status === "connected" ? "text-black" : "text-gray-400"}`}
           >
             {conversation.status.toUpperCase()}
           </span>
         </div>
-        <div className="flex justify-between w-full text-sm text-gray-400 font-mono">
+        <div className="flex justify-between w-full text-sm text-gray-500 font-mono">
           <span>Agent Activity:</span>
           <span
-            className={`font-semibold ${conversation.isSpeaking ? "text-blue-400 animate-pulse" : "text-gray-400"}`}
+            className={`font-semibold ${conversation.isSpeaking ? "text-black animate-pulse" : "text-gray-400"}`}
           >
             {conversation.isSpeaking ? "SPEAKING" : "LISTENING"}
           </span>
@@ -106,7 +106,7 @@ export function Conversation() {
             {[40, 80, 50, 90, 60].map((h, i) => (
               <div
                 key={i}
-                className="w-1.5 bg-blue-500 rounded-full animate-bounce"
+                className="w-1.5 bg-black rounded-full animate-bounce"
                 style={{
                   animationDelay: `${i * 0.1}s`,
                   height: `${h}%`,
