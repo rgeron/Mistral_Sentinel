@@ -39,18 +39,45 @@ export async function POST(request: Request) {
       });
     }
 
+    // Infer the tool type based on the incoming parameters
+    let toolType = "update_information"; // default
+    if (body.service_type || body.priority) {
+      toolType = "dispatch_emergency_services";
+    } else if (
+      body.transfer ||
+      body.human_requested ||
+      Object.keys(body).length === 0
+    ) {
+      // Sometimes transfer tools send an empty body or specific flags
+      toolType = "transfer_to_human";
+    } else if (
+      body.location !== undefined ||
+      body.caller_type ||
+      body.situation
+    ) {
+      toolType = "update_information";
+    }
+
     // Add a simple timestamp if not provided
-    const dataToSend = {
-      ...body,
-      timestamp: new Date().toISOString(),
+    const payload = {
+      type: toolType,
+      data: {
+        ...body,
+        timestamp: new Date().toISOString(),
+      },
     };
+
+    console.log("Broadcasting payload to Pusher:", payload);
 
     // Trigger an event on the 'incident-channel'
     // The event name 'incident-update' must match what the client is listening for
-    await pusher.trigger("incident-channel", "incident-update", dataToSend);
+    await pusher.trigger("incident-channel", "incident-update", payload);
 
     // Respond back to ElevenLabs
-    return NextResponse.json({ success: true, message: "Live UI updated" });
+    return NextResponse.json({
+      success: true,
+      message: `Processed ${toolType} tool`,
+    });
   } catch (error) {
     console.error("Error handling ElevenLabs webhook:", error);
     return NextResponse.json(
