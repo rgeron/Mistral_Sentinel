@@ -1,65 +1,96 @@
-import Image from "next/image";
+import { Conversation } from "./components/conversation";
+import { LiveIncidentSheet } from "./components/live-incident-sheet";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="flex min-h-screen flex-col items-center gap-12 p-8 md:p-24 bg-gradient-to-b from-gray-900 to-black text-white relative overflow-hidden">
+      {/* Background glow effects */}
+      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-blue-900/20 blur-[120px] pointer-events-none"></div>
+      <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-purple-900/20 blur-[120px] pointer-events-none"></div>
+
+      <div className="z-10 w-full max-w-6xl flex flex-col items-center font-sans tracking-wide">
+        <h1 className="text-5xl font-extrabold mb-4 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-500 pb-2">
+          Emergency Command Center
+        </h1>
+        <p className="text-gray-400 text-lg mb-12 text-center max-w-2xl">
+          AI-powered dispatch system. Initiate a call with the voice agent and
+          watch as it extracts critical information in real-time.
+        </p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full items-start">
+          <div className="flex flex-col gap-6 w-full">
+            <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 relative overflow-hidden shadow-2xl">
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-indigo-600"></div>
+              <h3 className="text-xl font-semibold mb-2 text-white flex items-center gap-2">
+                <svg
+                  className="w-5 h-5 text-blue-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
+                  />
+                </svg>
+                Voice Dispatch
+              </h3>
+              <p className="text-gray-400 text-sm mb-6">
+                Connect via WebRTC for ultra-low latency interactive voice
+                response.
+              </p>
+              <Conversation />
+            </div>
+
+            <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 shadow-xl">
+              <h3 className="text-lg font-semibold mb-3 text-white">
+                Integration Setup Guide
+              </h3>
+              <ul className="text-sm text-gray-400 space-y-3 font-mono">
+                <li className="flex gap-2">
+                  <span className="text-blue-400">1.</span>
+                  <span>
+                    Set{" "}
+                    <code className="bg-black/30 px-1 rounded text-blue-300">
+                      NEXT_PUBLIC_ELEVENLABS_AGENT_ID
+                    </code>{" "}
+                    in{" "}
+                    <code className="bg-black/30 px-1 rounded text-gray-300">
+                      .env.local
+                    </code>
+                  </span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-blue-400">2.</span>
+                  <span>
+                    Set Pusher credentials in{" "}
+                    <code className="bg-black/30 px-1 rounded text-gray-300">
+                      .env.local
+                    </code>{" "}
+                    (APP_ID, KEY, SECRET, CLUSTER)
+                  </span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-blue-400">3.</span>
+                  <span>
+                    Create ElevenLabs Server Tool{" "}
+                    <code className="bg-black/30 px-1 rounded text-green-300">
+                      update_live_dashboard
+                    </code>{" "}
+                    pointing to your API route.
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="flex flex-col w-full h-full justify-start items-center">
+            <LiveIncidentSheet />
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </div>
+    </main>
   );
 }
